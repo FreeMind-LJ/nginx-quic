@@ -44,7 +44,7 @@ bool QuicNgxHttpStream::SendHttpHeaders(const char* data, int len) {
         break;
       }
       
-      quiche::QuicheStringPiece line(data + start, i - start);
+      absl::string_view line(data + start, i - start);
       if (line.substr(0, 4) == "HTTP") {
         size_t pos = line.find(" ");
         if (pos == std::string::npos) {
@@ -80,13 +80,13 @@ bool QuicNgxHttpStream::SendHttpHeaders(const char* data, int len) {
 
   auto content_length = spdy_headers.find("content-length");
   if (content_length != spdy_headers.end()) {
-    quiche::QuicheTextUtils::StringToInt(content_length->second,
+    quiche::QuicheTextUtilsImpl::StringToInt(content_length->second,
                                    &content_length_);
   }
   std::string http_status("");
   auto it_status = spdy_headers.find(":status");
   if (it_status != spdy_headers.end()) {
-    http_status = it_status->second.as_string();
+    http_status = std::string(it_status->second);
   }
   // std::string http_ver("");
   // auto it_ver = proxy->spdy_headers_.find(":ver");
@@ -97,7 +97,7 @@ bool QuicNgxHttpStream::SendHttpHeaders(const char* data, int len) {
   std::string transfer_encoding("");
   auto it_transfer_encoding = spdy_headers.find("transfer-encoding");
   if (it_transfer_encoding != spdy_headers.end()) {
-    transfer_encoding = it_transfer_encoding->second.as_string();
+    transfer_encoding = std::string(it_transfer_encoding->second);
   }
 
   if (transfer_encoding == "chunked") {
@@ -192,7 +192,7 @@ bool QuicNgxHttpStream::SendHttpbody(const char*data, int len) {
           send_len = len;
         }
       
-        quiche::QuicheStringPiece body(data, send_len);
+        absl::string_view body(data, send_len);
         WriteOrBufferBody(body, false);
         content_length_ -= send_len;
         data += send_len;
@@ -218,7 +218,7 @@ bool QuicNgxHttpStream::SendHttpbody(const char*data, int len) {
     }
 
   } else {
-    quiche::QuicheStringPiece body(data, len);
+    absl::string_view body(data, len);
     fin_ = had_send_length_ == content_length_;
     WriteOrBufferBody(body, fin_);
   }

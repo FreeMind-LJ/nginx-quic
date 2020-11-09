@@ -39,7 +39,7 @@ class NET_EXPORT_PRIVATE ProofSourceNginx : public quic::ProofSource {
                 const std::string& hostname,
                 const std::string& server_config,
                 quic::QuicTransportVersion quic_version,
-                quiche::QuicheStringPiece chlo_hash,
+                absl::string_view chlo_hash,
                 std::unique_ptr<Callback> callback) override;
 
   quic::QuicReferenceCountedPointer<Chain> GetCertChain(
@@ -52,7 +52,7 @@ class NET_EXPORT_PRIVATE ProofSourceNginx : public quic::ProofSource {
       const quic::QuicSocketAddress& client_address,
       const std::string& hostname,
       uint16_t signature_algorithm,
-      quiche::QuicheStringPiece in,
+      absl::string_view in,
       std::unique_ptr<SignatureCallback> callback) override;
 
   TicketCrypter* GetTicketCrypter() override;
@@ -64,7 +64,7 @@ class NET_EXPORT_PRIVATE ProofSourceNginx : public quic::ProofSource {
       const std::string& hostname,
       const std::string& server_config,
       quic::QuicTransportVersion quic_version,
-      quiche::QuicheStringPiece chlo_hash,
+      absl::string_view chlo_hash,
       quic::QuicReferenceCountedPointer<quic::ProofSource::Chain>* out_chain,
       quic::QuicCryptoProof* proof);
 

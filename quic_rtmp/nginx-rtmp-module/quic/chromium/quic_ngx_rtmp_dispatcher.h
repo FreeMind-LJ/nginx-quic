@@ -39,7 +39,7 @@ class QuicNgxRtmpDispatcher : public QuicDispatcher {
       QuicConnectionId connection_id,
       const QuicSocketAddress& self_address,
       const QuicSocketAddress& peer_address,
-      quiche::QuicheStringPiece alpn,
+      absl::string_view alpn,
       const ParsedQuicVersion& version) override;
 
  private:

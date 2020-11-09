@@ -50,23 +50,23 @@ void QuicNgxHttpBackend::FetchResponseFromBackend(
   if (it == request_headers.end()) {
     return;
   }
-  ngx_request_header << it->second.as_string() << " ";
+  ngx_request_header << std::string(it->second) << " ";
 
   it = request_headers.find(":path");
   if (it == request_headers.end()) {
     return;
   }
-  ngx_request_header << it->second.as_string() << " HTTP/3.0\r\n";
+  ngx_request_header << std::string(it->second) << " HTTP/3.0\r\n";
 
   it = request_headers.find(":authority");
   if (it == request_headers.end()) {
     return;
   }
-  ngx_request_header << "Host: " << it->second.as_string() << "\r\n";
+  ngx_request_header << "Host: " << std::string(it->second) << "\r\n";
 
   for (auto it = request_headers.begin(); it != request_headers.end(); ++it) {
-    std::string k = it->first.as_string();
-    std::string v = it->second.as_string();
+    std::string k = std::string(it->first);
+    std::string v = std::string(it->second);
     if (k[0] == ':') {
       continue;
     }

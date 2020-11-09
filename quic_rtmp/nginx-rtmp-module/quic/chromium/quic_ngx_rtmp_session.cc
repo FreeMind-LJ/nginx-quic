@@ -88,7 +88,7 @@ void QuicNgxRtmpVisitor::OnCanWrite() {
 }
 
 bool QuicNgxRtmpVisitor::Write(const char* data, int len) {
-  quiche::QuicheStringPiece d(data, len);
+  absl::string_view d(data, len);
   return stream_->Write(d);
 }
 

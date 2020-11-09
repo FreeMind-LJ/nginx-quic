@@ -28,7 +28,7 @@ namespace {
 using quic::CryptoHandshakeMessage;
 using quic::ParsedQuicVersion;
 using quic::PROTOCOL_TLS1_3;
-using quic::QUIC_VERSION_IETF_DRAFT_25;
+using quic::QUIC_VERSION_IETF_DRAFT_29 ;
 using quic::QuicChromiumClock;
 using quic::QuicCryptoServerStreamBase;
 using quic::QuicSocketAddress;

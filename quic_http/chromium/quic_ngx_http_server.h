@@ -74,7 +74,7 @@ class QuicNgxHttpServer {
     crypto_config_.set_chlo_multiplier(multiplier);
   }
 
-  void SetPreSharedKey(quiche::QuicheStringPiece key) {
+  void SetPreSharedKey(absl::string_view key) {
     crypto_config_.set_pre_shared_key(key);
   }
 

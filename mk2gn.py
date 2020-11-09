@@ -275,7 +275,7 @@ if __name__ == '__main__':
                 out_fd.writelines("""      # dynamic library: pthread or static library: /path/xxx.a\n""")
                 for l in libs:
                     if l == "crypt":
-                        out_fd.writelines("""      "/lib/x86_64-linux-gnu/libcrypt.so.1",\n""")
+                        out_fd.writelines("""      "/usr/lib64/libcrypt.so.1",\n""")
                     else:
                         out_fd.writelines("""      "%s",\n"""%(l))
                 out_fd.writelines("""    ]\n""")
@@ -283,7 +283,7 @@ if __name__ == '__main__':
                 out_fd.writelines("""    cflags_c = [\n""")
                 for f in flags_c:
                     out_fd.writelines("""      "%s",\n"""%(f))
-                out_fd.writelines("""    ]\n""")
+                out_fd.writelines("""    "-Wno-error",\n    ]\n""")
             
                 out_fd.writelines("""  }\n\n""")
                 
